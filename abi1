@@ -1,0 +1,71 @@
+import random
+
+# User's name
+user_name = input("Enter your name: ")
+
+# Scores
+user_score = 0
+machine_score = 0
+
+# Choices
+choices = {1: 'Paper', 2: 'Scissor', 3: 'Rock'}
+values = {'Paper': 10, 'Scissor': 20, 'Rock': 30}
+
+# Start
+match_count = 0
+
+print("\nWelcome to the Rock-Paper-Scissors Game!")
+print("Best of 3 matches wins the game.\n")
+
+while match_count < 3:
+    match_count += 1
+
+    # User's choice
+    print("\nChoose an option:")
+    for key, value in choices.items():
+        print(f"{key}. {value}")
+
+    user_choice = input(f"{user_name}, enter your choice (1, 2, or 3): ")
+
+    if user_choice in ['1', '2', '3']:
+        user_choice = int(user_choice)
+        user_choice_name = choices[user_choice]
+        user_value = values[user_choice_name]
+    else:
+        print("Invalid input! Please enter 1, 2, or 3.")
+        continue
+
+    # Machine random choice
+    machine_choice = random.randint(1, 3)
+    machine_choice_name = choices[machine_choice]
+    machine_value = values[machine_choice_name]
+
+    # Display choices
+    print(f"\n{user_name} chose: {user_choice_name}")
+    print(f"Machine chose: {machine_choice_name}")
+
+    # Determine the winner of the match
+    if user_value == machine_value:
+        print("It's a draw!")
+        user_score += 1
+        machine_score += 1
+    elif (user_value == values['Paper'] and machine_value == values['Rock']) or \
+         (user_value == values['Scissor'] and machine_value == values['Paper']) or \
+         (user_value == values['Rock'] and machine_value == values['Scissor']):
+        print(f"{user_name} wins this match!")
+        user_score += 2
+    else:
+        print("Machine wins this match!")
+        machine_score += 2
+
+# After 3 matches, print the overall winner
+print("\nGame over!")
+
+if user_score > machine_score:
+    print(f"{user_name} is the overall winner!")
+elif user_score < machine_score:
+    print("Machine is the overall winner!")
+else:
+    print("The game is a draw!")
+
+print("\nThank you for playing!")
